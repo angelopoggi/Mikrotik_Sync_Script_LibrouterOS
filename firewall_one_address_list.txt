@@ -1,0 +1,273 @@
+{"list": "Safe", "address": "1.2.3.4", "comment": "this is a test"}
+{"list": "Safe", "address": "2.3.4.5", "comment": "welcome"}
+{"list": "Safe", "address": "5.6.7.8"}
+{"list": "Safe", "address": "10.198.35.78", "comment": "Hello world!"}
+{"list": "New", "address": "2.5.6.7"}
+{"list": "safe", "address": "24.38.80.36", "comment": "WebAir wireless"}
+{"list": "safe", "address": "209.200.59.192/27", "comment": "Techs (2)"}
+{"list": "safe", "address": "209.200.59.128/26", "comment": "Techs (1)"}
+{"list": "safe", "address": "174.137.148.48", "comment": "Sagi"}
+{"list": "safe", "address": "173.239.2.0/24", "comment": "VPNs"}
+{"list": "safe", "address": "209.200.29.233", "comment": "NOC IP"}
+{"list": "safe", "address": "71.160.199.233", "comment": "Mehran"}
+{"list": "safe", "address": "67.55.87.13", "comment": "sightmax2"}
+{"list": "client_safe", "address": "74.103.39.30", "comment": "TelAgility:HQ2"}
+{"list": "VPN_Blocks", "address": "192.168.0.0/16"}
+{"list": "VPN_Blocks", "address": "10.0.0.0/8"}
+{"list": "TAC-VAL", "address": "74.104.148.170"}
+{"list": "TAC-TelAgility-IPO2", "address": "162.254.51.41"}
+{"list": "safe", "address": "73.134.167.62", "comment": "mkpotluri@telagility.biz"}
+{"list": "safe", "address": "173.239.2.207", "comment": "Techs (Public)"}
+{"list": "safe", "address": "96.57.35.235", "comment": "Techs (3)"}
+{"list": "safe", "address": "173.239.2.220", "comment": "Techs (4)"}
+{"list": "safe", "address": "173.239.11.0/24", "comment": "?"}
+{"list": "TAC-Infra", "address": "74.206.229.236"}
+{"list": "TAC-Infra", "address": "74.206.229.230"}
+{"list": "TAC-Infra", "address": "162.254.51.37"}
+{"list": "TAC-Infra", "address": "162.254.51.42"}
+{"list": "safe", "address": "10.255.255.0/24", "comment": "DHCP"}
+{"list": "safe", "address": "74.103.39.14", "comment": "TA:HQ2"}
+{"list": "ssh-safe", "address": "73.134.167.62", "comment": "mkpotluri@telagility.biz"}
+{"list": "ssh-safe", "address": "74.103.39.30", "comment": "TelAgility-HQ2"}
+{"list": "client_safe", "address": "73.134.167.62", "comment": "mkpotluri@telagility.biz"}
+{"list": "client_safe", "address": "162.254.51.70", "comment": "TA:dcopswin12"}
+{"list": "ssh-safe", "address": "162.254.51.70", "comment": "dcopswin12.webair.com"}
+{"list": "safe", "address": "173.225.119.45", "comment": "Mehran's VM"}
+{"list": "safe", "address": "74.103.39.30", "comment": "TelAgility:HQ2"}
+{"list": "L2-Network", "address": "172.16.0.0/12", "comment": "L2 Network"}
+{"list": "VPN_Blocks", "address": "172.16.0.0/12"}
+{"list": "rdp-telstrat71", "address": "74.103.39.30", "comment": "Telstrat71 RDP Access List"}
+{"list": "sip-safe", "address": "73.134.167.62", "comment": "mkpotluri@telagility.biz"}
+{"list": "sip-safe", "address": "74.107.75.190", "comment": "adam@home"}
+{"list": "sbcMTL", "address": "172.24.0.10"}
+{"list": "sbcMTL", "address": "172.24.0.14"}
+{"list": "port2525-restricted", "address": "162.254.51.73", "comment": "SMTP on Port 2525"}
+{"list": "rdp-ir-clients", "address": "73.14.65.63", "comment": "JohnDunn-TossAfter 6/23/2016"}
+{"list": "rdp-ir-clients", "address": "216.85.144.82", "comment": "JohnDunn-TossAfter 6/23/2016"}
+{"list": "safe", "address": "64.60.120.34", "comment": "Rigo-Advantel"}
+{"list": "8084safe", "address": "74.103.39.30", "comment": "TelAgility HQ2"}
+{"list": "8084safe", "address": "73.134.167.62", "comment": "mkpotluri@telagility.biz"}
+{"list": "8084safe", "address": "67.174.70.60", "comment": "steve@telagility.biz"}
+{"list": "safe", "address": "69.42.71.196", "comment": "dcopsvpn"}
+{"list": "port2525-restricted", "address": "162.254.51.96/27", "comment": "SMTP on Port 2525 - MiTel-NY"}
+{"list": "port2525-restricted", "address": "173.239.60.160/27", "comment": "SMTP on Port 2525 - MiTel-MTL"}
+{"list": "port2525-restricted", "address": "162.254.51.46", "comment": "SMTP>dcopsW64:Westcon-OSS"}
+{"list": "port2525-restricted", "address": "74.206.229.234", "comment": "SMTP>dcopsJ62:Jenne-OSS"}
+{"list": "IPOBlocks", "address": "162.254.51.32/27", "comment": "IP Office Ranges"}
+{"list": "IPOBlocks", "address": "173.239.60.128/27", "comment": "IP Office Ranges"}
+{"list": "IPOBlocks", "address": "74.206.229.224/28", "comment": "IP Office Ranges"}
+{"list": "port2525-restricted", "address": "173.239.60.128/26", "comment": "SMTP on Port 2525 - MiTel-MTL"}
+{"list": "VPN_Blocks", "address": "172.24.0.0/16"}
+{"list": "IPOBlocks", "address": "162.254.51.128/26", "comment": "IP Office Ranges"}
+{"list": "rdp-safe", "address": "67.163.115.227", "comment": "SteveLaslo RDP Access to DCOPSWin12"}
+{"list": "IPOBlocks", "address": "162.254.51.16/28", "comment": "IP Office Ranges"}
+{"list": "OSS-Servers", "address": "162.254.51.80", "comment": "Westcon OSS/WebLM"}
+{"list": "OSS-Servers", "address": "74.206.229.234", "comment": "Jenne OSS/WebLM"}
+{"list": "safe-ipomanager", "address": "67.163.115.227", "comment": "TAC-SteveLaslo"}
+{"list": "safe-ipomanager", "address": "73.134.167.62", "comment": "mkpotluri@telagility.biz"}
+{"list": "DCOPS-Safe", "address": "67.163.115.227", "comment": "DCOPS:SteveLaslo-steve@telagility.biz"}
+{"list": "IPOBlocks", "address": "198.134.125.96/27", "comment": "IP Office Ranges - LA"}
+{"list": "ssh-safe", "address": "172.16.2.57", "comment": "dcopswin12.webair.com"}
+{"list": "IPOBlocks", "address": "173.239.60.192/26", "comment": "IP Office Ranges"}
+{"list": "OSS-Servers", "address": "74.206.229.226", "comment": "TelAgility OSS/WebLM"}
+{"list": "sip-safe", "address": "67.163.115.227", "comment": "steve@telagility.biz"}
+{"list": "IPOBlocks", "address": "162.254.51.192/26", "comment": "IP Office Ranges - dcopsvpn5/esxi3"}
+{"list": "IPOBlocks", "address": "162.254.51.126", "comment": "IPOCC-TOPPS"}
+{"list": "ssh-safe", "address": "162.254.51.238", "comment": "dca.telagility.biz"}
+{"list": "IPOBlocks", "address": "66.207.36.64/26", "comment": "IP Office Ranges - MTL esxi1"}
+{"list": "ASBCE", "address": "66.207.36.80", "comment": "ASBCE-MTL-1"}
+{"list": "ASBCE", "address": "66.207.36.81", "comment": "ASBCE-MTL-2"}
+{"list": "ASBCE", "address": "162.254.51.225", "comment": "ASBCE-NY-EMS"}
+{"list": "DCOPSADMIN", "address": "67.163.115.227", "comment": "DCOPS:SteveLaslo-steve@telagility.biz"}
+{"list": "DCOPSADMIN", "address": "73.134.167.62", "comment": "DCOPS:mkpotluri@telagility.biz"}
+{"list": "ssh-safe", "address": "172.16.0.15", "comment": "dca.telagility.biz"}
+{"list": "GENBAND", "address": "172.16.0.15", "comment": "Genband"}
+{"list": "GENBAND", "address": "172.16.0.10", "comment": "Genband"}
+{"list": "GENBAND", "address": "172.16.0.11", "comment": "Genband"}
+{"list": "GENBAND", "address": "172.16.0.14", "comment": "Genband"}
+{"list": "GENBAND", "address": "172.24.0.14", "comment": "Genband"}
+{"list": "GENBAND", "address": "172.24.0.11", "comment": "Genband"}
+{"list": "GENBAND", "address": "172.24.0.10", "comment": "Genband"}
+{"list": "sbcMgmtNY", "address": "172.16.0.15"}
+{"list": "sbcMgmtNY", "address": "172.16.2.0/24"}
+{"list": "ipocc-clients", "address": "38.104.201.217", "comment": "ECM-AmericaWorks-IPOCC-CLIENT"}
+{"list": "ipocc-clients", "address": "38.104.201.218", "comment": "ECM-AmericaWorks-IPOCC-CLIENT"}
+{"list": "safe", "address": "209.200.10.136/29", "comment": "netmon"}
+{"list": "IPOBlocks", "address": "74.206.232.0/27", "comment": "IP Office Ranges - NY"}
+{"list": "DCOPS-Safe", "address": "97.118.224.201", "comment": "DCOPS:Jim Gillette-jim@telagility.biz"}
+{"list": "IPOBlocks", "address": "66.207.37.0/26", "comment": "IP Office Ranges - MTL esxi1"}
+{"list": "safe-ipomanager", "address": "73.78.22.198", "comment": "TAC-James"}
+{"list": "sip-safe", "address": "73.78.22.198", "comment": "TAC-James"}
+{"list": "ssh-safe", "address": "162.254.51.197", "comment": "AUTOVM"}
+{"list": "IPOBlocks", "address": "199.193.73.64/26", "comment": "IP Office Ranges - NY - ESXi2"}
+{"list": "safe-ipomanager", "address": "107.215.164.61", "comment": "GSL40003-39504"}
+{"list": "safe-ipomanager", "address": "71.251.205.40", "comment": "ECM40004-39108"}
+{"list": "safe-ipomanager", "address": "104.32.26.99", "comment": "GSL40003-39504"}
+{"list": "safe-ipomanager", "address": "74.93.129.9", "comment": "ALL40129-38312"}
+{"list": "safe-ipomanager", "address": "104.243.173.23", "comment": "ALL40129-38312"}
+{"list": "safe-ipomanager", "address": "173.59.18.94", "comment": "TTI40131-39517"}
+{"list": "safe-ipomanager", "address": "12.245.19.126", "comment": "GSL40003-39504"}
+{"list": "XimaVM", "address": "199.193.73.118", "comment": "ALL40129-38312"}
+{"list": "safe-ipomanager", "address": "162.155.112.154", "comment": "DBS40069-39529"}
+{"list": "safe-ipomanager", "address": "96.237.183.229", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "73.117.122.222", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "65.203.86.40", "comment": "MIT40091-35803"}
+{"list": "safe-ipomanager", "address": "65.203.86.9", "comment": "MIT40091-35803"}
+{"list": "safe-ipomanager", "address": "208.105.225.126", "comment": "MIT40091-35803"}
+{"list": "safe-ipomanager", "address": "76.105.106.240", "comment": "TTI40131-39517"}
+{"list": "safe-ipomanager", "address": "74.105.22.229", "comment": "ECM40004-39108"}
+{"list": "sip-safe", "address": "74.105.22.229", "comment": "ECM40004-39108"}
+{"list": "safe-ipomanager", "address": "50.77.176.141", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "74.113.228.82", "comment": "TCU40149-39425"}
+{"list": "safe-ipomanager", "address": "70.63.118.66", "comment": "TCU40149-39425"}
+{"list": "safe-ipomanager", "address": "66.26.87.198", "comment": "TCU40149-39425"}
+{"list": "safe-ipomanager", "address": "162.221.232.152/29", "comment": "CNG40027-38510"}
+{"list": "safe-ipomanager", "address": "68.106.222.27", "comment": "GSL40003-3902"}
+{"list": "safe-ipomanager", "address": "71.92.68.90", "comment": "GSL40003-3902"}
+{"list": "safe-ipomanager", "address": "76.80.96.218", "comment": "GSL40003-3902"}
+{"list": "safe-ipomanager", "address": "192.243.33.250", "comment": "GSL40003-3902"}
+{"list": "safe-ipomanager", "address": "173.11.9.16/29", "comment": "TDT40158-39603"}
+{"list": "safe-ipomanager", "address": "75.164.190.230", "comment": "RAc40133-39810"}
+{"list": "sip-safe", "address": "75.164.190.230", "comment": "RAc40133-39810"}
+{"list": "sip-safe", "address": "209.166.137.226", "comment": "RAc40133-39810"}
+{"list": "safe-ipomanager", "address": "209.166.137.226", "comment": "RAc40133-39810"}
+{"list": "safe-ipomanager", "address": "71.34.87.87", "comment": "RAC-Maxim"}
+{"list": "sip-safe", "address": "12.245.19.126", "comment": "GSL40002-39504"}
+{"list": "safe-ipomanager", "address": "99.60.176.87", "comment": "LAT40150-39428"}
+{"list": "sip-safe", "address": "99.60.176.87", "comment": "LAT40150-39428"}
+{"list": "safe-ipomanager", "address": "38.142.229.146", "comment": "LAT40150-39428"}
+{"list": "sip-safe", "address": "38.142.229.146", "comment": "LAT40150-39428"}
+{"list": "safe-ipomanager", "address": "174.231.1.50", "comment": "IPC40033-39422"}
+{"list": "sip-safe", "address": "174.231.1.50", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "98.176.5.200", "comment": "LAT40150-39428"}
+{"list": "safe-ipomanager", "address": "108.166.130.142", "comment": "ITC40057-34105"}
+{"list": "safe-ipomanager", "address": "66.214.247.154", "comment": "GSL40003-3902"}
+{"list": "safe-ipomanager", "address": "172.85.48.142", "comment": "ICC40016-39206"}
+{"list": "safe-ipomanager", "address": "65.25.57.229", "comment": "TSA40044-39706"}
+{"list": "safe-ipomanager", "address": "166.216.159.217", "comment": "TSA40044-39706"}
+{"list": "safe-ipomanager", "address": "50.226.177.32/27", "comment": "ITC40057-34106"}
+{"list": "safe-ipomanager", "address": "50.226.177.18", "comment": "ITC40057-34106"}
+{"list": "safe-ipomanager", "address": "50.226.177.62", "comment": "ITC40057-34106"}
+{"list": "safe-ipomanager", "address": "173.15.62.33", "comment": "FEC40097-39403"}
+{"list": "safe-ipomanager", "address": "173.15.62.36", "comment": "FEC40097-39403"}
+{"list": "safe-ipomanager", "address": "66.31.52.132", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "10.110.10.0/24", "comment": "ITC40057-34106"}
+{"list": "safe-ipomanager", "address": "96.231.174.125", "comment": "DEL40106-30303"}
+{"list": "safe-ipomanager", "address": "76.90.163.27", "comment": "GSL40003-39504"}
+{"list": "safe-ipomanager", "address": "166.148.24.75", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "166.148.24.76", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "166.148.24.77", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "96.120.64.206", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "216.86.19.2", "comment": "SSD40153-39423"}
+{"list": "sip-safe", "address": "98.213.18.250", "comment": "FEC40097-39403"}
+{"list": "safe-ipomanager", "address": "68.15.55.10", "comment": "HTL40039-39212"}
+{"list": "sip-safe", "address": "96.120.64.205", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "50.197.7.82", "comment": "DEL40106-30303"}
+{"list": "sip-safe", "address": "96.231.174.125", "comment": "DEL40106-30303"}
+{"list": "safe-ipomanager", "address": "98.216.27.219", "comment": "IPC40033-3913"}
+{"list": "sip-safe", "address": "98.216.27.219", "comment": "IPC40033-3913"}
+{"list": "sip-safe", "address": "66.31.52.132", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "71.174.119.126", "comment": "IPC40033-39422"}
+{"list": "sip-safe", "address": "71.174.119.126", "comment": "IPC40033-39422"}
+{"list": "safe-ipomanager", "address": "173.15.226.43", "comment": "TMS40151-39409"}
+{"list": "safe-ipomanager", "address": "96.66.6.134", "comment": "TMS40151-39409"}
+{"list": "sip-safe", "address": "173.15.226.43", "comment": "TMS40151-39409"}
+{"list": "sip-safe", "address": "96.66.6.134", "comment": "TMS40151-39409"}
+{"list": "safe-ipomanager", "address": "162.155.153.90", "comment": "HTL40039-39212"}
+{"list": "sip-safe", "address": "162.155.153.90", "comment": "HTL40039-39212"}
+{"list": "safe-ipomanager", "address": "68.184.219.96", "comment": "IPC40033-37502"}
+{"list": "safe-ipomanager", "address": "70.63.23.138", "comment": "CCC40059-39605"}
+{"list": "safe-ipomanager", "address": "70.63.23.139", "comment": "CCC40059-39605"}
+{"list": "safe-ipomanager", "address": "24.123.140.122", "comment": "CCC40059-39605"}
+{"list": "safe-ipomanager", "address": "172.254.73.106", "comment": "ICC40016-39430"}
+{"list": "safe-ipomanager", "address": "173.220.54.54", "comment": "ICC40016-39430"}
+{"list": "safe-ipomanager", "address": "68.6.82.174", "comment": "GSL40003-39420"}
+{"list": "safe-ipomanager", "address": "174.127.57.254", "comment": "CTF40092-38311"}
+{"list": "sip-safe", "address": "174.127.57.254", "comment": "CTF40092-38311"}
+{"list": "safe-ipomanager", "address": "100.12.1.146", "comment": "NVD40100-39540"}
+{"list": "sip-safe", "address": "100.12.1.146", "comment": "NVD40100-39540"}
+{"list": "safe-ipomanager", "address": "71.230.154.6", "comment": "TTI40131-39517"}
+{"list": "safe-ipomanager", "address": "38.140.1.205", "comment": "NVD40100-39540"}
+{"list": "sip-safe", "address": "38.140.1.205", "comment": "NVD40100-39540"}
+{"list": "safe-ipomanager", "address": "166.254.211.237", "comment": "IPC40033-37502"}
+{"list": "sip-safe", "address": "166.254.211.237", "comment": "IPC40033-37502"}
+{"list": "safe-ipomanager", "address": "162.198.39.18", "comment": "162.198.39.18"}
+{"list": "safe-ipomanager", "address": "76.98.51.195", "comment": "TTI40131-39517"}
+{"list": "safe-ipomanager", "address": "68.43.65.76", "comment": "TMS40151-39608"}
+{"list": "sip-safe", "address": "68.43.65.76", "comment": "TMS40151-39608"}
+{"list": "sip-safe", "address": "73.36.154.242", "comment": "FEC40097-40406"}
+{"list": "safe-ipomanager", "address": "72.88.194.226", "comment": "ECM40004-41016"}
+{"list": "safe-ipomanager", "address": "71.127.244.161", "comment": "ECM40004-36902"}
+{"list": "sip-safe", "address": "71.127.244.161", "comment": "ECM40004-36902"}
+{"list": "safe-ipomanager", "address": "74.141.88.76", "comment": "TSA40044-40502"}
+{"list": "sip-safe", "address": "100.35.55.106", "comment": "ECM40004-36902"}
+{"list": "safe-ipomanager", "address": "12.227.77.66", "comment": "WWT40126-39532"}
+{"list": "sip-safe", "address": "12.227.77.66", "comment": "WWT40126-39532"}
+{"list": "sip-safe", "address": "100.35.55.110", "comment": "ECM40004-36902"}
+{"list": "safe-ipomanager", "address": "38.104.230.30", "comment": "GSL40003-38407"}
+{"list": "safe-ipomanager", "address": "38.140.1.202", "comment": "NVD40100-39540"}
+{"list": "safe-ipomanager", "address": "173.251.20.32/27", "comment": "MIT40091-35803"}
+{"list": "safe-ipomanager", "address": "50.74.185.0/28", "comment": "MIT40091-35803"}
+{"list": "safe-ipomanager", "address": "162.254.51.70", "comment": "dcopswin12"}
+{"list": "safe-ipomanager", "address": "96.234.40.185", "comment": "ECM40004-41016"}
+{"list": "safe-ipomanager", "address": "66.244.181.66", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "66.244.181.107", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "66.244.181.115", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "104.32.17.74", "comment": "GSL40003-32115"}
+{"list": "IPOResilience", "address": "199.193.73.94", "comment": "ITC-Badlands-Primary"}
+{"list": "IPOResilience", "address": "198.134.125.110", "comment": "ITC-Badlands-Secondary"}
+{"list": "safe-ipomanager", "address": "198.46.109.42", "comment": "ECM40004-36902"}
+{"list": "safe-ipomanager", "address": "72.194.111.40", "comment": "GSL40003-39118-Alex"}
+{"list": "safe-ipomanager", "address": "72.255.74.162", "comment": "ITC40057-34106"}
+{"list": "sip-safe", "address": "72.255.74.162", "comment": "ITC40057-34106"}
+{"list": "sip-safe", "address": "199.193.73.78", "comment": "ECM40004-41016"}
+{"list": "sip-safe", "address": "72.88.194.226", "comment": "ECM40004-41016"}
+{"list": "attacker", "address": "173.212.222.176"}
+{"list": "sip-safe", "address": "136.61.229.229", "comment": "IPC40033-39422"}
+{"list": "XimaVM", "address": "199.193.73.75", "comment": "MIT40091-35803"}
+{"list": "safe-ipomanager", "address": "173.48.19.234", "comment": "IPC40033-36306"}
+{"list": "safe-ipomanager", "address": "63.99.47.177", "comment": "Westcon-MichaelBrodbeck"}
+{"list": "safe-ipomanager", "address": "63.99.47.165", "comment": "Westcon-MichaelBrodbeck"}
+{"list": "safe-ipomanager", "address": "75.130.225.222", "comment": "IPC40033-39513"}
+{"list": "sip-safe", "address": "75.130.225.222", "comment": "IPC40033-39513"}
+{"list": "safe-ipomanager", "address": "96.94.99.48", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.50", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.52", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.53", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.54", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.55", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.57", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.58", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.59", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.60", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.61", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.62", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.94.99.63", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "65.25.53.221", "comment": "TSA40044-40502"}
+{"list": "safe-ipomanager", "address": "72.95.137.53", "comment": "ADC40043-44013"}
+{"list": "safe-ipomanager", "address": "96.11.99.249", "comment": "TSA40044-40502"}
+{"list": "sip-safe", "address": "96.11.99.249", "comment": "TSA40044-40502"}
+{"list": "safe-ipomanager", "address": "96.11.99.251", "comment": "TSA40044-40502"}
+{"list": "sip-safe", "address": "96.11.99.251", "comment": "TSA40044-40502"}
+{"list": "safe", "address": "67.55.99.225", "comment": "dcopswin16"}
+{"list": "safe-ipomanager", "address": "208.184.100.66", "comment": "ITC40057-34105"}
+{"list": "sip-safe", "address": "208.184.100.66", "comment": "ITC40057-34105"}
+{"list": "safe-ipomanager", "address": "70.181.79.59", "comment": "GSL40003-39118-Alex"}
+{"list": "safe-ipomanager", "address": "72.76.76.2", "comment": "ECM40004-10001"}
+{"list": "safe-ipomanager", "address": "96.86.2.33", "comment": "ITC40057-34105"}
+{"list": "safe-ipomanager", "address": "38.108.16.100", "comment": "IPC40033-39422"}
+{"list": "sip-safe", "address": "38.108.16.100", "comment": "IPC40033-39422"}
+{"list": "sip-safe", "address": "96.86.2.33", "comment": "ITC40057-34105"}
+{"list": "safe-ipomanager", "address": "96.237.229.9", "comment": "IPC40033-36306"}
+{"list": "safe-ipomanager", "address": "136.61.229.229", "comment": "IPC40033-36306"}
+{"list": "safe-ipomanager", "address": "50.242.218.5", "comment": "ITC40057-34106"}
+{"list": "sip-safe", "address": "50.242.218.5", "comment": "ITC40057-34106"}
+{"list": "safe-ipomanager", "address": "184.180.220.45", "comment": "GSL40003-5604"}
+{"list": "safe-ipomanager", "address": "72.76.76.0/27", "comment": "ECM40004-1000172.76.76.1/27"}
+{"list": "sip-safe", "address": "72.76.76.0/27", "comment": "ECM40004-10001"}
+{"list": "sip-safe", "address": "100.37.94.34", "comment": "ICC40016-39206"}
+{"list": "sip-safe", "address": "100.37.94.35", "comment": "ICC40016-39206"}
+{"list": "sip-safe", "address": "100.37.94.36", "comment": "ICC40016-39206"}
+{"list": "sip-safe", "address": "100.37.94.37", "comment": "ICC40016-39206"}
+{"list": "sip-safe", "address": "100.37.94.38", "comment": "ICC40016-39206"}
+{"list": "Safe", "address": "10.255.20.0/24", "comment": "GNS3"}

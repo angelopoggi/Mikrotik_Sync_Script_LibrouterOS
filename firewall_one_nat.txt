@@ -1,0 +1,20 @@
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.12", "dst-address": "173.225.123.38", "comment": "Nat for Terminal Server"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.30", "dst-address": "213.247.47.108", "comment": "Second IP-Nat for Terminal Server"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.13", "dst-address": "173.225.123.39", "comment": "Nat for Mail00"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.22", "dst-address": "66.207.47.68", "comment": "Nat for miraprodapp01"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.23", "dst-address": "66.207.47.69", "comment": "Nat for miradevapp01"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.11", "dst-address": "173.225.123.40", "comment": "Nat for Mail01"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.10", "dst-address": "173.225.123.41", "comment": "Nat for mira-file01"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.102", "dst-address": "173.225.123.42", "comment": "Nat for mirasftp01"}
+{"chain": "dstnat", "action": "dst-nat", "to-addresses": "192.168.200.17", "dst-address": "173.225.123.43", "comment": "Ticket #1097605"}
+{"chain": "srcnat", "src-address-list": "VPN", "dst-address-list": "VPN", "comment": "VPN Network"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "173.225.123.38", "src-address": "192.168.200.12", "out-interface": "Public"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "173.225.123.39", "src-address": "192.168.200.13", "out-interface": "Public"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "173.225.123.40", "src-address": "192.168.200.11", "out-interface": "Public"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "173.225.123.41", "src-address": "192.168.200.41", "out-interface": "Public"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "66.207.47.68", "src-address": "192.168.200.22", "out-interface": "Public", "comment": "miraprodapp01"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "66.207.47.69", "src-address": "192.168.200.23", "out-interface": "Public", "comment": "miradevapp01"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "173.225.123.42", "src-address": "192.168.200.102", "out-interface": "Public"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "213.247.47.108", "src-address": "192.168.200.30", "out-interface": "Public", "comment": "Terminal Server Second NAT IP"}
+{"chain": "srcnat", "action": "src-nat", "to-addresses": "173.225.123.43", "src-address": "192.168.200.17", "out-interface": "Public"}
+{"chain": "srcnat", "action": "masquerade", "out-interface": "Public"}

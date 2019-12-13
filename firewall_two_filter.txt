@@ -1,0 +1,738 @@
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist", "dynamic": false}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true, "comment": "drop everything else"}
+{"chain": "input", "action": "jump", "jump-target": "services", "dynamic": false, "comment": "jump to chain services"}
+{"chain": "services", "protocol": "gre", "dynamic": false, "comment": "allow PPTP and EoIP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP FIN Stealth scan"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "dynamic": false, "comment": "3:4 and limit for 5pac/s"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "dynamic": false, "comment": "allow MACwinbox "}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "dynamic": false, "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "dynamic": false, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "dynamic": false, "comment": "Mail00 - allow port 25"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "dynamic": false, "comment": "allow IPSec connections"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "dynamic": false, "disabled": true, "comment": "Allow BGP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "dynamic": false, "comment": "3:3 and limit for 5pac/s"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop invalid packets"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "dynamic": false, "comment": "suppress DoS attack"}
+{"chain": "forward", "src-address": "192.168.200.40", "dynamic": false, "comment": "allow zack machine out"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "dynamic": false, "comment": "Drop Invalid Packets"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "dynamic": false, "comment": "11:0 and limit for 5pac/s"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "dynamic": false, "comment": " MT Discovery Protocol"}
+{"chain": "forward", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "input", "connection-state": "established", "dynamic": false, "comment": "Accept established connection packets"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "dynamic": false, "disabled": true, "comment": "allow BGP"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "dynamic": false, "disabled": true, "comment": "allow SNMP"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "dynamic": false, "disabled": true, "comment": "allow RIP"}
+{"chain": "input", "dst-address-type": "broadcast", "dynamic": false, "comment": "Allow Broadcast Traffic"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "dynamic": false, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "action": "return", "dynamic": false}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "dynamic": false, "disabled": true}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "dynamic": false, "comment": "accept localhost"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "dynamic": false, "comment": "Ticket #1122845 port 60492"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "dynamic": false, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "dynamic": false, "comment": "Allow PPTP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "dynamic": false, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "dynamic": false, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "dynamic": false, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "input", "src-address-list": "safe", "dynamic": false, "comment": "Allow access to router from safe list"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "dynamic": false, "comment": "Allow VPN connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "dynamic": false, "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "dynamic": false, "comment": "Allow 3389 for mira-win12"}
+{"chain": "input", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "dynamic": false, "comment": "Drop everything else"}
+{"chain": "services", "protocol": "ospf", "dynamic": false, "disabled": true, "comment": "allow OSPF"}
+{"chain": "forward", "connection-state": "related", "dynamic": false, "comment": "Accept related connection packets"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "Port scanners to list"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "dynamic": false, "comment": "detect DoS attack"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "dynamic": false, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "dynamic": false, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "allow DNS request"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "dynamic": false, "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "services", "protocol": "ipencap", "dynamic": false, "disabled": true, "comment": "allow IPIP"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "dynamic": false, "disabled": true, "comment": "Allow NTP"}
+{"chain": "input", "action": "drop", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "dynamic": false, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "FIN/PSH/URG scan"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/FIN scan"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "src-address-list": "safe", "dynamic": false, "comment": "Webair Safe List"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "NMAP NULL scan"}
+{"chain": "forward", "src-address": "192.168.200.0/24", "dynamic": false}
+{"chain": "forward", "src-address": "192.168.203.0/24", "dynamic": false, "comment": "Allow VPN Clients"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "dynamic": false, "comment": "8:0 and limit for 5pac/s"}
+{"chain": "forward", "action": "drop", "dynamic": false, "disabled": true, "comment": "Drop everything else"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "SYN/RST scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "dynamic": false, "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "dynamic": false, "comment": "ALL/ALL scan"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "dynamic": false, "comment": "jump to chain ICMP"}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "dynamic": false, "comment": "drop port scan connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "dynamic": false, "comment": "Ticket #1097605"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "dynamic": false, "disabled": true, "comment": "allow DHCP"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "dynamic": false, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "dynamic": false, "comment": "drop requested IPs"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "dynamic": false, "comment": "Ticket #1290370"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "dynamic": false, "comment": "0:0 and limit for 5pac/s"}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "dynamic": false, "disabled": true}
+{"chain": "services", "protocol": "ipsec-esp", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "dynamic": false, "comment": "Mail01 - allow port 80,443"}
+{"chain": "services", "protocol": "ipsec-ah", "dynamic": false, "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "icmp", "dynamic": false, "comment": "Allow ping"}

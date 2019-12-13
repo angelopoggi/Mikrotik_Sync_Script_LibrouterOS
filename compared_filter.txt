@@ -1,0 +1,82 @@
+{"chain": "services", "protocol": "ospf", "disabled": true, "comment": "allow OSPF"}
+{"chain": "forward", "src-address-list": "VPN", "dst-address-list": "VPN", "comment": "Allow VPN connections"}
+{"chain": "services", "protocol": "udp", "dst-port": "520-521", "disabled": true, "comment": "allow RIP"}
+{"chain": "services", "protocol": "ipsec-esp", "comment": "allow IPSec"}
+{"chain": "forward", "action": "add-src-to-address-list", "connection-limit": "30,32", "protocol": "tcp", "address-list": "spammer", "address-list-timeout": "1d", "dst-port": 25, "limit": "50,5:packet", "disabled": true, "comment": "Detect and add-list SMTP virus or spammers"}
+{"chain": "input", "action": "add-src-to-address-list", "protocol": "tcp", "psd": "21,3s,3,1", "address-list": "port_scanners", "address-list-timeout": "2w", "comment": "Port scanners to list"}
+{"chain": "input", "connection-state": "established", "comment": "Accept established connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.30", "dst-port": 3389, "comment": "Terminal Server - allow 3389 port"}
+{"chain": "input", "action": "drop", "src-address-list": "blacklist"}
+{"chain": "input", "action": "jump", "jump-target": "services", "comment": "jump to chain services"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 1433, "comment": "Ticket #1097605"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:3", "limit": "5,5:packet", "comment": "3:3 and limit for 5pac/s"}
+{"chain": "forward", "connection-state": "established", "comment": "Accept established connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.12", "src-address-list": "US", "dst-port": 3389, "log-prefix": "RDP:", "comment": "Terminal Server - allow 3389 port"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1080, "disabled": true, "comment": "allow Socks for Hotspot"}
+{"chain": "forward", "src-address": "192.168.200.0/24"}
+{"chain": "services", "protocol": "udp", "dst-port": "500,4500", "comment": "allow IPSec connections"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.28", "dst-port": 22, "disabled": true}
+{"chain": "input", "action": "log", "log-prefix": "Filter:", "disabled": true}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": "3:4", "limit": "5,5:packet", "comment": "3:4 and limit for 5pac/s"}
+{"chain": "services", "protocol": "tcp", "dst-port": 1723, "comment": "Allow PPTP"}
+{"chain": "services", "protocol": "udp", "dst-port": "5000-5100", "disabled": true, "comment": "allow BGP"}
+{"chain": "forward", "action": "log", "dst-address": "192.168.200.10", "log": true, "log-prefix": "MIRAFILE01:", "disabled": true}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "dst-port": 80, "comment": "Ticket #1290370"}
+{"chain": "forward", "protocol": "icmp", "comment": "Allow ping"}
+{"chain": "input", "action": "jump", "jump-target": "ICMP", "protocol": "icmp", "comment": "jump to chain ICMP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "dst-port": "80,443", "comment": "TT 1102366 - open 80 and 443 for miraprodapp01.webair.com"}
+{"chain": "forward", "connection-state": "related", "comment": "Accept related connection packets"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "syn,rst", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "comment": "SYN/RST scan"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "dst-port": "80,443", "comment": "TT 1102366 - open 80 and 443 for miradevapp01.webair.com"}
+{"chain": "services", "protocol": "udp", "dst-port": 123, "disabled": true, "comment": "Allow NTP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "comment": "SYN/FIN scan"}
+{"chain": "input", "action": "drop", "connection-state": "invalid", "comment": "Drop invalid packets"}
+{"chain": "services", "action": "return"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.41", "dst-port": 3389, "comment": "Allow 3389 for mira-win12"}
+{"chain": "services", "protocol": "tcp", "dst-port": 53, "disabled": true, "comment": "allow DNS request"}
+{"chain": "services", "protocol": "tcp", "dst-port": 161, "disabled": true, "comment": "allow SNMP"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.22", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "comment": "TT 1102366 - open port 22 w/ restricted ips for miraprodapp01.webair.com"}
+{"chain": "forward", "action": "drop", "disabled": true, "comment": "Drop everything else"}
+{"chain": "input", "connection-state": "related", "comment": "Accept related connection packets"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.13", "dst-port": 25, "comment": "Mail00 - allow port 25"}
+{"chain": "forward", "src-address": "192.168.203.0/24", "comment": "Allow VPN Clients"}
+{"chain": "input", "action": "tarpit", "connection-limit": "3,32", "protocol": "tcp", "src-address-list": "black_list", "comment": "suppress DoS attack"}
+{"chain": "services", "protocol": "udp", "dst-port": "67-68", "disabled": true, "comment": "allow DHCP"}
+{"chain": "forward", "src-address": "192.168.200.40", "comment": "allow zack machine out"}
+{"chain": "services", "protocol": "tcp", "dst-port": 8080, "disabled": true, "comment": "allow Web Proxy"}
+{"chain": "forward", "action": "log", "protocol": "tcp", "src-address-list": "US", "dst-port": 3389, "log": true, "log-prefix": "RDP:", "disabled": true}
+{"chain": "forward", "src-address-list": "safe", "comment": "Webair Safe List"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.23", "src-address-list": "client_safe_ticket1102366", "dst-port": 22, "comment": "TT 1102366 - open port 22 w/ restricted ips for miradevapp01.webair.com"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,syn,rst,psh,ack,urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "comment": "ALL/ALL scan"}
+{"chain": "services", "protocol": "tcp", "dst-port": 443, "disabled": true, "comment": "allow https for Hotspot"}
+{"chain": "services", "protocol": "ipsec-ah", "comment": "allow IPSec"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.10", "dst-port": "22,23", "comment": "Requested via Email to Joe M 19JUL16"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 0, "limit": "5,5:packet", "comment": "0:0 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "connection-limit": "10,32", "protocol": "tcp", "address-list": "black_list", "address-list-timeout": "1d", "comment": "detect DoS attack"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.17", "src-address-list": "client_safe_ticket1097605", "dst-port": 60492, "comment": "Ticket #1122845 port 60492"}
+{"chain": "input", "src-address-list": "safe", "comment": "Allow access to router from safe list"}
+{"chain": "input", "action": "drop", "disabled": true}
+{"chain": "input", "action": "drop", "src-address-list": "port_scanners", "comment": "drop port scan connections"}
+{"chain": "services", "protocol": "gre", "comment": "allow PPTP and EoIP"}
+{"chain": "forward", "action": "drop", "connection-state": "invalid", "comment": "Drop Invalid Packets"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2828, "disabled": true, "comment": "UPnP"}
+{"chain": "forward", "action": "drop", "src-address-list": "blacklist", "comment": "drop requested IPs"}
+{"chain": "services", "protocol": "tcp", "dst-port": 2000, "disabled": true, "comment": "Bandwidth server"}
+{"chain": "services", "protocol": "ipencap", "disabled": true, "comment": "allow IPIP"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,psh,urg,!syn,!rst,!ack", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "comment": "FIN/PSH/URG scan"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "!fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "comment": "NMAP NULL scan"}
+{"chain": "services", "protocol": "udp", "dst-port": 5678, "comment": " MT Discovery Protocol"}
+{"chain": "ICMP", "action": "drop", "protocol": "icmp", "comment": "Drop everything else"}
+{"chain": "services", "protocol": "tcp", "dst-port": 179, "disabled": true, "comment": "Allow BGP"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 11, "limit": "5,5:packet", "comment": "11:0 and limit for 5pac/s"}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.102", "dst-port": 22, "comment": "1285701 open port 990/22  to MIRA-SFTP01"}
+{"chain": "forward", "action": "drop", "protocol": "tcp", "src-address-list": "spammer", "dst-port": 25, "disabled": true, "comment": "BLOCK SPAMMERS OR INFECTED USERS"}
+{"chain": "services", "protocol": "udp", "dst-port": 20561, "comment": "allow MACwinbox "}
+{"chain": "forward", "protocol": "tcp", "dst-address": "192.168.200.11", "dst-port": "80,443", "comment": "Mail01 - allow port 80,443"}
+{"chain": "input", "action": "drop", "disabled": true, "comment": "drop everything else"}
+{"chain": "services", "protocol": "udp", "dst-port": 53, "disabled": true, "comment": "Allow DNS request"}
+{"chain": "ICMP", "protocol": "icmp", "icmp-options": 8, "limit": "5,5:packet", "comment": "8:0 and limit for 5pac/s"}
+{"chain": "input", "action": "add-src-to-address-list", "tcp-flags": "fin,!syn,!rst,!psh,!ack,!urg", "protocol": "tcp", "address-list": "port_scanners", "address-list-timeout": "2w", "comment": "NMAP FIN Stealth scan"}
+{"chain": "input", "dst-address-type": "broadcast", "comment": "Allow Broadcast Traffic"}
+{"chain": "services", "src-address": "127.0.0.1", "dst-address": "127.0.0.1", "comment": "accept localhost"}
+{"chain": "services", "protocol": "udp", "dst-port": 1900, "disabled": true, "comment": "UPnP"}
