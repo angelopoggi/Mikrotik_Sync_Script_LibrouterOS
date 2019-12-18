@@ -14,6 +14,10 @@ from librouteros import *
 
 import json
 
+import email_report
+
+
+
 
 #to be removed
 logo = '''
@@ -40,35 +44,40 @@ print('=-=' *20)
 #VPN Info (Peers/policies)
 
 
+
+
 #todo: add error handling if firewalls are not online!
 #todo: rename this function to something more fitting on what it is doing
 def firewall_connect(primary_firewall, Secondary_firewall):
     firewall_one = connect(**primary_firewall)
     firewall_two = connect(**secondary_firewall)
 
-    #this will return a dictionary
-    firewall_one_address_list = firewall_one.path('/ip/firewall/address-list')
-    firewall_two_address_list = firewall_two.path('/ip/firewall/address-list')
+    try:
+        #this will return a dictionary
+        firewall_one_address_list = firewall_one.path('/ip/firewall/address-list')
+        firewall_two_address_list = firewall_two.path('/ip/firewall/address-list')
 
-    #firewall rules
-    firewall_one_filter = firewall_one.path('/ip/firewall/filter')
-    firewall_two_filter = firewall_two.path ('/ip/firewall/filter')
+        #firewall rules
+        firewall_one_filter = firewall_one.path('/ip/firewall/filter')
+        firewall_two_filter = firewall_two.path ('/ip/firewall/filter')
 
-    #NAT Rules
-    firewall_one_nat = firewall_one.path('/ip/firewall/nat')
-    firewall_two_nat = firewall_two.path('/ip/firewall/nat')
+        #NAT Rules
+        firewall_one_nat = firewall_one.path('/ip/firewall/nat')
+        firewall_two_nat = firewall_two.path('/ip/firewall/nat')
 
-    #IPSec PEER
-    firewall_one_ipsecpeer = firewall_one.path('/ip/ipsec/peer')
-    firewall_two_ipsecpeer = firewall_two.path('/ip/ipsec/peer')
+        #IPSec PEER
+        firewall_one_ipsecpeer = firewall_one.path('/ip/ipsec/peer')
+        firewall_two_ipsecpeer = firewall_two.path('/ip/ipsec/peer')
 
-    #IPSec Policy
-    firewall_one_ipsecpolicy = firewall_one.path('/ip/ipsec/policy')
-    firewall_two_ipsecpolicy = firewall_two.path('/ip/ipsec/policy')
+        #IPSec Policy
+        firewall_one_ipsecpolicy = firewall_one.path('/ip/ipsec/policy')
+        firewall_two_ipsecpolicy = firewall_two.path('/ip/ipsec/policy')
 
-    #IPSec Proposal
-    firewall_one_ipsecproposal = firewall_one.path('/ip/ipsec/proposal')
-    firewall_two_ipsecproposal = firewall_two.path('/ip/ipsec/proposal')
+        #IPSec Proposal
+        firewall_one_ipsecproposal = firewall_one.path('/ip/ipsec/proposal')
+        firewall_two_ipsecproposal = firewall_two.path('/ip/ipsec/proposal')
+    except:
+        print('Firewall May be offline!')
 
 
 
@@ -149,8 +158,8 @@ def firewall_connect(primary_firewall, Secondary_firewall):
     # IPSEC STUFF
     ################################################
     #PEER
-    with open('firewall_one_ipsec_peer', 'w+') as fw_file:
-        # for item in firewall_one_ipsecpeer:
+    with open('firewall_one_ipsec_peer.txt', 'w+') as fw_file:
+        for item in firewall_one_ipsecpeer:
         #     item.pop('creation-time')
         #     item.pop('.id')
         #     item.pop('disabled')
@@ -158,7 +167,7 @@ def firewall_connect(primary_firewall, Secondary_firewall):
             json.dump(item, fw_file)
             fw_file.write('\n')
 
-    with open('firewall_two_ipsec_peer', 'w+') as fw2_file:
+    with open('firewall_two_ipsec_peer.txt', 'w+') as fw2_file:
         for item in firewall_two_ipsecpeer:
             # item.pop('creation-time')
             # item.pop('.id')
@@ -168,7 +177,7 @@ def firewall_connect(primary_firewall, Secondary_firewall):
             fw2_file.write('\n')
 
         #POLICY
-        with open ( 'firewall_one_ipsec_policy' , 'w+' ) as fw_file :
+        with open ( 'firewall_one_ipsec_policy.txt' , 'w+' ) as fw_file :
             for item in firewall_one_ipsecpolicy :
                 # item.pop ( 'creation-time' )
                 # item.pop ( '.id' )
@@ -177,7 +186,7 @@ def firewall_connect(primary_firewall, Secondary_firewall):
                 json.dump ( item , fw_file )
                 fw_file.write ( '\n' )
 
-        with open ( 'firewall_two_ipsec_policy' , 'w+' ) as fw2_file :
+        with open ( 'firewall_two_ipsec_policy.txt' , 'w+' ) as fw2_file :
             for item in firewall_two_ipsecpolicy :
                 # item.pop ( 'creation-time' )
                 # item.pop ( '.id' )
@@ -187,7 +196,7 @@ def firewall_connect(primary_firewall, Secondary_firewall):
                 fw2_file.write ( '\n' )
 
         # Proposal
-        with open ( 'firewall_one_ipsec_proposal' , 'w+' ) as fw_file :
+        with open ( 'firewall_one_ipsec_proposal.txt' , 'w+' ) as fw_file :
             for item in firewall_one_ipsecproposal :
                 # item.pop ( 'creation-time' )
                 # item.pop ( '.id' )
@@ -196,7 +205,7 @@ def firewall_connect(primary_firewall, Secondary_firewall):
                 json.dump ( item , fw_file )
                 fw_file.write ( '\n' )
 
-        with open ( 'firewall_two_ipsec_proposal' , 'w+' ) as fw2_file :
+        with open ( 'firewall_two_ipsec_proposal.txt' , 'w+' ) as fw2_file :
             for item in firewall_two_ipsecproposal :
                 # item.pop ( 'creation-time' )
                 # item.pop ( '.id' )
@@ -250,14 +259,16 @@ compare_file('firewall_one_nat.txt', 'firewall_two_nat.txt','compared_nat')
 
 #comparing filter rules
 
-
-
 write_firewall(secondary_firewall, 'compared_lists.txt','/ip/firewall/address-list')
 
 write_firewall(secondary_firewall, 'compared_filter.txt','ip/firewall/filter')
 
 write_firewall(secondary_firewall, 'compared_nat.txt', '/ip/firewall/nat')
 
+# email_report.email_report('angelo.poggi@webair.com',
+#                           '',
+#                           'rickie.harripersaud@webair.com',
+#                           'Can you see me? This came from P Y T H O N')
 
 
 
