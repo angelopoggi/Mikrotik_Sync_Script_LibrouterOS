@@ -16,7 +16,7 @@ def message(error_message) :
     # App Password
     stmp_object.login ('angelo.poggi@webair.com', 'udodumoavliwfmrp')
     stmp_object.sendmail ( 'angelo.poggi@webair.com' ,
-                           'Rickie.Harripersaud@webair.com' ,
+                           'angelo.poggi@webair.com' ,
                            '''Subject: Sync Script Error Report\n
                           {}'''.format ( error_message ) )
 

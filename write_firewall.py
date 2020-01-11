@@ -2,7 +2,7 @@
 #Write Firewall Function
 #By: Angelo Poggi
 #
-#This is a function that connects to the firewall reads teh difference file
+#This is a function that connects to the firewall reads the difference file
 #And sends that to the secondary firewall
 #####################################
 
