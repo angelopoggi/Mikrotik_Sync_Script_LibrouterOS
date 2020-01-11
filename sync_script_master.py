@@ -74,13 +74,25 @@ secondary_firewall= {
 
 }
 
+##############################
+#Connection to Firewalls and#
+##############################
+try:
+    connection.firewall_connect(primary_firewall)
+except:
+    email_report.message('{} appears to be offline!\n The firewalls are no longer in sync'.format(primary_firewall['host']))
+    sys.exit(1)
+
+try:
+    connection.firewall_connect(secondary_firewall)
+except:
+    email_report.message('{} appears to be offline!\n The firewalls are no longer in sync!'.format(secondary_firewall['host']))
+    sys.exit(1)
 
 
-connection.firewall_connect(primary_firewall)
-
-connection.firewall_connect(secondary_firewall)
-
-
+##########################
+#File comparisons
+##########################
 try:
     compare_file.compare_file('{}_address_list.txt'.format(primary_firewall['host']),
                               '{}_address_list.txt'.format(secondary_firewall['host']),
@@ -95,6 +107,9 @@ try:
                               'compared_filter')
 except:
     email_report.message('There was an issue comparing the filter rules for both firewalls!')
+
+try:
+
 
 
 

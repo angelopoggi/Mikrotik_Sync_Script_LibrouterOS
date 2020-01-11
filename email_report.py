@@ -18,7 +18,12 @@ def message(error_message) :
     stmp_object.sendmail ( 'angelo.poggi@webair.com' ,
                            'angelo.poggi@webair.com' ,
                            '''Subject: Sync Script Error Report\n
-                          {}'''.format ( error_message ) )
+                          <html>
+                          <body>
+                          <h1>Mikrotik Sync Script</h1>
+                          <p>Thi is a system generated message</p>
+                          {}
+                          </html>'''.format ( error_message ) )
 
 
     stmp_object.quit ()
