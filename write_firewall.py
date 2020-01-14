@@ -13,9 +13,9 @@ import json
 def write_firewall(firewall, file,path):
     api = connect(**firewall)
     with open(file, 'r') as write_file:
-        address_list = api.path(path)
+        firewall_path = api.path(path)
         for line in write_file:
             #need to convert this back to JSON
             config = json.loads(line)
             #write the data to firewall
-            address_list.add(**config)
+            firewall_path.add(**config)
