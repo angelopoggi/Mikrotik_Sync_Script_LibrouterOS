@@ -18,4 +18,7 @@ def write_firewall(firewall, file,path):
             #need to convert this back to JSON
             config = json.loads(line)
             #write the data to firewall
+
+
+
             firewall_path.add(**config)

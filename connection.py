@@ -30,14 +30,24 @@ def firewall_connect(firewall) :
     firewall_object_filter = firewall_object.path ( '/ip/firewall/filter' )
     # NAT Rules
     firewall_object_nat = firewall_object.path ( '/ip/firewall/nat' )
+    ############################
+    #IPSEC - PHASE 1
+    ############################
+    #IPSEC Profile
+    firewall_object_ipsec_profile = firewall_object.path('/ip/ipsec/profile')
     # IPSec PEER
     firewall_object_ipsecpeer = firewall_object.path ( '/ip/ipsec/peer' )
-    # IPSec Policy
-    firewall_object_ipsecpolicy = firewall_object.path ( '/ip/ipsec/policy' )
-    # IPSec Proposal
-    firewall_object_ipsecproposal = firewall_object.path ( '/ip/ipsec/proposal' )
     # IPSec Identity (for new firmwares)
     firewall_object_identity = firewall_object.path ( '/ip/ipsec/identity' )
+    ############################
+    #IPSEC PHASE 2
+    ###########################
+    # IPSec Proposal - PHASE 2
+    firewall_object_ipsecproposal = firewall_object.path ( '/ip/ipsec/proposal' )
+    # IPSec Policy
+    firewall_object_ipsecpolicy = firewall_object.path ( '/ip/ipsec/policy' )
+
+
 
 
     # todo: more testing with Key valu pairs, feel as though I am removing to many?
@@ -79,7 +89,7 @@ def firewall_connect(firewall) :
         for item in firewall_object_object_address_list :
             item.pop ( 'creation-time' )
             item.pop ( '.id' )
-            item.pop ( 'disabled' )
+            #item.pop ( 'disabled' )
             item.pop ( 'dynamic' )
             json.dump ( item , fw_file )
             fw_file.write ( '\n' )
@@ -87,37 +97,79 @@ def firewall_connect(firewall) :
 
 
     ################################################
-    # IPSEC STUFF
+    # IPSEC STUFF - PHASE 1
     ################################################
+    #Profile
+    with open ( '{}_ipsec_profile.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
+        for item in firewall_object_ipsec_profile :
+            if item['name'] == 'default':
+                print('Skipping default value of IPSec Profile on {}'.format(firewall['host']))
+            else:
+                item.pop ( '.id' )
+                json.dump ( item , fw_file )
+                fw_file.write ( '\n' )
+
     # PEER
     with open ( '{}_ipsec_peer.txt'.format(firewall['host']) , 'w+' ) as fw_file :
         for item in firewall_object_ipsecpeer :
             item.pop ( '.id' )
-            json.dump ( item , fw_file )
-            fw_file.write ( '\n' )
-
-    # POLICY
-    with open ( '{}_ipsec_policy.txt'.format(firewall['host']) , 'w+' ) as fw_file :
-        for item in firewall_object_ipsecpolicy :
-            item.pop ( '.id' )
-            item.pop ( 'disabled' )
-            item.pop ( 'dynamic' )
-            json.dump ( item , fw_file )
-            fw_file.write ( '\n' )
-
-    # Proposal
-    with open ( '{}_ipsec_proposal.txt'.format(firewall['host']) , 'w+' ) as fw_file :
-        for item in firewall_object_ipsecproposal :
-            item.pop ( '.id' )
+            item.pop('responder')
             json.dump ( item , fw_file )
             fw_file.write ( '\n' )
 
     # Identity
-    with open ( '{}_ipsec_identity.txt'.format(firewall['host']) , 'w+' ) as fw_file :
+    with open ( '{}_ipsec_identity.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
         for item in firewall_object_identity :
             item.pop ( '.id' )
+            item.pop ( 'dynamic' )
+
             json.dump ( item , fw_file )
             fw_file.write ( '\n' )
+    ##############################
+    #IPSEC PHASE 2
+    ##############################
+    # Proposal
+    with open ( '{}_ipsec_proposal.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
+        for item in firewall_object_ipsecproposal :
+            if item['name'] == 'default':
+                print('Skipping default values for IPSEC proposal for {}'.format(firewall['host']))
+            else:
+                item.pop ( '.id' )
+                json.dump ( item , fw_file )
+                fw_file.write ( '\n' )
+
+
+
+
+    # POLICY
+    with open ( '{}_ipsec_policy.txt'.format(firewall['host']) , 'w+' ) as fw_file :
+        #Dumb logic here to skip over "default" PH2, since not everyting has "group" in it
+        #Using i += iter to skip over first line, which should always be the default ph2
+        i = 0
+        for item in firewall_object_ipsecpolicy :
+            if i == 0:
+                i += 1
+                continue
+                #Removing all stats that cant be written to firewall!
+            else:
+                item.pop ( '.id' )
+                item.pop ( 'ph2-count' )
+                item.pop ( 'ph2-state')
+                item.pop ( 'active' )
+                item.pop ( 'invalid' )
+                item.pop ( 'dynamic' )
+            json.dump ( item , fw_file )
+            fw_file.write ( '\n' )
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -10,16 +10,22 @@
 #################################
 
 
-
+############
+#All packages required for firewall stuff
 import email_report
 import compare_file
 import write_firewall
+import connection
+
+###############
+#Arbitrary modules needed for little odds and ends
+from json2html import *
+import json
 import sys
 import ssl
-import connection
 import configparser
-import json2html
 import os
+
 
 
 
@@ -89,40 +95,53 @@ firewall_one_files = [
     '{}_address_list.txt'.format(primary_firewall['host']),
     '{}_filter.txt'.format(primary_firewall['host']),
     '{}_nat.txt'.format(primary_firewall['host']),
+    '{}_ipsec_profile.txt'.format(primary_firewall['host']),
+    '{}_ipsec_peer.txt'.format(primary_firewall['host']),
     '{}_ipsec_identity.txt'.format(primary_firewall['host']),
-    '{}_ipsec_policy.txt'.format(primary_firewall['host']),
     '{}_ipsec_proposal.txt'.format(primary_firewall['host']),
-    '{}_ipsec_peer.txt'.format(primary_firewall['host'])
+    '{}_ipsec_policy.txt'.format(primary_firewall['host'])
+    
+    
 ]
 
 firewall_two_files = [
     '{}_address_list.txt'.format(secondary_firewall['host']),
     '{}_filter.txt'.format(secondary_firewall['host']),
     '{}_nat.txt'.format(secondary_firewall['host']),
+    '{}_ipsec_profile.txt'.format(secondary_firewall['host']),
+    '{}_ipsec_peer.txt'.format(secondary_firewall['host']),
     '{}_ipsec_identity.txt'.format(secondary_firewall['host']),
-    '{}_ipsec_policy.txt'.format(secondary_firewall['host']),
     '{}_ipsec_proposal.txt'.format(secondary_firewall['host']),
-    '{}_ipsec_peer.txt'.format(secondary_firewall['host'])
+    '{}_ipsec_policy.txt'.format(secondary_firewall['host'])
 ]
 
 compared_files = [
-    'compared_address.txt',
-    'compared_filter.txt',
-    'compared_nat.txt',
-    'compared_identity.txt',
-    'compared_policy.txt',
-    'compared_proposal.txt',
-    'compared_peer.txt'
+    'compared_address',
+    'compared_filter',
+    'compared_nat',
+    'compared_profile',
+    'compared_peer',
+    'compared_identity',
+    'compared_proposal',
+    'compared_policy'
+    
+    
 ]
 
+######################
+#When it comes to writing IPSEC, Peer msut come before Identity, as Peer is required for Identity configuration
+#####################
 paths = [
     '/ip/firewall/address-list',
     '/ip/firewall/filter',
     '/ip/firewall/nat',
+    '/ip/ipsec/profile',
+    '/ip/ipsec/peer',
     '/ip/ipsec/identity',
-    '/ip/ipsec/policy',
     '/ip/ipsec/proposal',
-    '/ip/ipsec/peer'
+    '/ip/ipsec/policy',
+
+
 
 
 ]
@@ -131,14 +150,14 @@ paths = [
 #Connect to each firewall
 ##############################
 for device in firewalls:
-    try:
+     try:
         connection.firewall_connect(device)
-    except:
-        email_report.message('''
-        Error connecting to {}\n
-        The Script has now quit and the firewalls are no longer in sync\n
-        Please check the firewall is online or configuraiton in the script!'''.format(device['host']))
-        sys.exit(1)
+     except:
+         email_report.message('''
+         Error connecting to {}\n
+         The Script has now quit and the firewalls are no longer in sync\n
+         Please check the firewall is online or configuraiton in the script!'''.format(device['host']))
+         sys.exit(1)
 ##############################################
 #Compare files and write/Create the comparison
 ###############################################
@@ -154,22 +173,39 @@ for fw1,fw2,comp in zip(firewall_one_files, firewall_two_files, compared_files):
 #Write to the firewall
 ##################################
 for comp,path in zip(compared_files, paths):
-    write_firewall.write_firewall ( secondary_firewall , comp , path )
+    try:
+         write_firewall.write_firewall(secondary_firewall, comp, path)
 
-    # try:
-    #      write_firewall.write_firewall(secondary_firewall, comp, path)
-    #
-    # except:
-    #     email_report.message('there was an issue writing {} to {}'.format(comp, secondary_firewall['host']))
-    #     sys.exit(1)
+    except:
+        email_report.message('there was an issue writing {} to {}'.format(comp, secondary_firewall['host']))
+        sys.exit(1)
+
+
 
 ############################
 #Send a summary email
 ############################
 
-for compared in compared_files:
-    compared = json2html.convert(json=compared)
-    email_report.message('Below is a summary of what was written to the {}\n{}'.format(secondary_firewall['host'], compared))
+#Wrting all changes made to a single file
+with open('final_report', 'w+') as report:
+    for comp in compared_files:
+        with open(comp, 'r') as comp_file:
+            for line in comp_file:
+                report.write(line)
+
+#IM sure there is an easier way to do this, but thisis the best I could come up with
+#Read final_report, load it as JSON and then conver to html, send to email report
+with open('final_report', 'r') as html:
+    payload = []
+    for line in html:
+        table = json.loads(line)
+        payload.append(table)
+    final_payload = json2html.convert(json=payload)
+    email_report.message('Script has Finished, please review any changes listed below. If no list is present, nothing was changed\n {}'.format(final_payload))
+
+
+
+
 
 
 

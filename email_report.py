@@ -4,9 +4,9 @@
 #By: Angelo Poggi
 #
 #
-#This class is written to make sending emails much easier int he Mikrotik Sync
+#This class is written to make sending emails much easier in the Mikrotik Sync
 #Script
-#################################
+################################
 import smtplib
 import configparser
 from email.mime.text import MIMEText
@@ -21,23 +21,19 @@ def message(user_message) :
     email_password = config.get ( 'email' , 'email_password' )
     send_to = config.get ( 'email' , 'send_to' )
 
-    # stmp_object = smtplib.SMTP (  )
-    # stmp_object.ehlo ()
-    # stmp_object.starttls ()
-    # # App Password
-    # stmp_object.login (email_address, email_password)
-
     message = MIMEMultipart("Alternative")
     message["Subject"] = "Mikrotik Sync Script E-Mail"
     message["from"] = email_address
     message["to"] = send_to
+
 
     html_message = '''
     <html>
     <body>
     <p>
     This is a system generated message</p>
-    <p>{}</p>'''.format(user_message)
+    <br>
+    {}'''.format(user_message)
 
     content = MIMEText(html_message,"html")
     message.attach(content)
