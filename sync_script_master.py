@@ -16,6 +16,7 @@ import email_report
 import compare_file
 import write_firewall
 import connection
+import reverse_write
 
 ###############
 #Arbitrary modules needed for little odds and ends
@@ -25,10 +26,6 @@ import sys
 import ssl
 import configparser
 import os
-
-
-
-
 
 #to be removed
 logo = '''
@@ -46,15 +43,7 @@ print('=-=' *20)
 print(logo)
 print('=-=' *20)
 
-#Creating an UNECRYPTED CONNECTION to the firewalls
-#should consider renaming this, as it does more than just connect
-
-#address-list - GOOD
-#Firewall rules - Good
-#NAT rules - Good
-#VPN Info (Peers/policies
-
-#todo: create a more robust way to adding firewalls, possilby INI files?
+#todo: Add reverse logic when removing rules form FW1
 
 #Using this as per API's documenation - Might need to be changed?
 ctx = ssl.create_default_context()
@@ -124,8 +113,17 @@ compared_files = [
     'compared_identity',
     'compared_proposal',
     'compared_policy'
-    
-    
+]
+
+reverse_compared_files = [
+    'reverse_compared_address',
+    'reverse_compared_filter',
+    'reverse_compared_nat',
+    'reverse_compared_profile',
+    'reverse_compared_peer',
+    'reverse_compared_identity',
+    'reverse_compared_proposal',
+    'reverse_compared_policy'
 ]
 
 ######################
@@ -140,10 +138,6 @@ paths = [
     '/ip/ipsec/identity',
     '/ip/ipsec/proposal',
     '/ip/ipsec/policy',
-
-
-
-
 ]
 
 ##############################
@@ -156,22 +150,35 @@ for device in firewalls:
          email_report.message('''
          Error connecting to {}\n
          The Script has now quit and the firewalls are no longer in sync\n
-         Please check the firewall is online or configuraiton in the script!'''.format(device['host']))
+         Please check the firewall is online or configuration in the script!'''.format(device['host']))
          sys.exit(1)
 ##############################################
-#Compare files and write/Create the comparison
+#Compare files and write/Create the comparison - Firewall 2 to 1 Comp
+###############################################
+for fw2,fw1,comp in zip(firewall_two_files, firewall_one_files, reverse_compared_files):
+    try:
+        compare_file.compare_file(fw2,fw1,comp)
+    except:
+
+        email_report.message('There was an error comparing {} {} {}'.format(fw2,fw1,comp))
+        sys.exit(1)
+        
+##############################################
+#Compare files and write/Create the comparison - Firewall 1 to 2 Comp
 ###############################################
 for fw1,fw2,comp in zip(firewall_one_files, firewall_two_files, compared_files):
     try:
         compare_file.compare_file(fw1,fw2,comp)
     except:
 
-        email_report.message('There was an error comparing {} {} {}'.format(fw1,fw2,comp))
+        email_report.message('There was an error performing reversal comparison  {} {} {}'.format(fw1,fw2,comp))
         sys.exit(1)
 
 ##################################
 #Write to the firewall
 ##################################
+
+#
 for comp,path in zip(compared_files, paths):
     try:
          write_firewall.write_firewall(secondary_firewall, comp, path)
@@ -179,33 +186,35 @@ for comp,path in zip(compared_files, paths):
     except:
         email_report.message('there was an issue writing {} to {}'.format(comp, secondary_firewall['host']))
         sys.exit(1)
+#
 
-
+for rev_comp, path in zip(reverse_compared_files, paths):
+    reverse_write.reverse_write(secondary_firewall, rev_comp,path)
 
 ############################
 #Send a summary email
 ############################
 
-#Wrting all changes made to a single file
-with open('final_report', 'w+') as report:
-    for comp in compared_files:
-        with open(comp, 'r') as comp_file:
-            for line in comp_file:
-                report.write(line)
-
-#IM sure there is an easier way to do this, but thisis the best I could come up with
-#Read final_report, load it as JSON and then conver to html, send to email report
-with open('final_report', 'r') as html:
-    payload = []
-    for line in html:
-        table = json.loads(line)
-        payload.append(table)
-    final_payload = json2html.convert(json=payload)
-    email_report.message('Script has Finished, please review any changes listed below. If no list is present, nothing was changed\n {}'.format(final_payload))
-
-
-
-
+# #Wrting all changes made to a single file
+# with open('final_report', 'w+') as report:
+#     for comp in compared_files:
+#         with open(comp, 'r') as comp_file:
+#             for line in comp_file:
+#                 report.write(line)
+#
+# #IM sure there is an easier way to do this, but thisis the best I could come up with
+# #Read final_report, load it as JSON and then conver to html, send to email report
+# with open('final_report', 'r') as html:
+#     payload = []
+#     for line in html:
+#         table = json.loads(line)
+#         payload.append(table)
+#     final_payload = json2html.convert(json=payload)
+#     email_report.message('Script has Finished, please review any changes listed below. If no list is present, nothing was changed\n {}'.format(final_payload))
+#
+#
+#
+#
 
 
 

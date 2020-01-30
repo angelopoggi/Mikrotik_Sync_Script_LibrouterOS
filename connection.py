@@ -7,8 +7,7 @@
 # Pulls data, reads it and creates files
 #############################################
 
-# todo: add error handling if firewalls are not online!
-# todo: rename this function to something more fitting on what it is doing
+
 # todo: add DHCP sync,
 # Import all of Librouter
 from librouteros import *
@@ -48,10 +47,6 @@ def firewall_connect(firewall) :
     firewall_object_ipsecpolicy = firewall_object.path ( '/ip/ipsec/policy' )
 
 
-
-
-    # todo: more testing with Key valu pairs, feel as though I am removing to many?
-    # todo: create a function that does all this, outside of firewall_connect (?)
     ################################################
     # Filter Rules
     ################################################
@@ -114,6 +109,7 @@ def firewall_connect(firewall) :
         for item in firewall_object_ipsecpeer :
             item.pop ( '.id' )
             item.pop('responder')
+            item.pop('dynamic')
             json.dump ( item , fw_file )
             fw_file.write ( '\n' )
 
@@ -143,14 +139,12 @@ def firewall_connect(firewall) :
 
     # POLICY
     with open ( '{}_ipsec_policy.txt'.format(firewall['host']) , 'w+' ) as fw_file :
-        #Dumb logic here to skip over "default" PH2, since not everyting has "group" in it
-        #Using i += iter to skip over first line, which should always be the default ph2
-        i = 0
+        #just checking to see if the word default is in the dictionaty, if so - skip over
+
         for item in firewall_object_ipsecpolicy :
-            if i == 0:
-                i += 1
+            if 'default' in item:
                 continue
-                #Removing all stats that cant be written to firewall!
+
             else:
                 item.pop ( '.id' )
                 item.pop ( 'ph2-count' )
@@ -160,13 +154,6 @@ def firewall_connect(firewall) :
                 item.pop ( 'dynamic' )
             json.dump ( item , fw_file )
             fw_file.write ( '\n' )
-
-
-
-
-
-
-
 
 
 
