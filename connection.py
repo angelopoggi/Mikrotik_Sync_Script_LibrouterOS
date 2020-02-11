@@ -50,6 +50,11 @@ def firewall_connect(firewall) :
     ################################################
     # Filter Rules
     ################################################
+    with open ( '{}_filter_id.txt'.format(firewall['host']) , 'w' ) as fw_filter :
+        for item in firewall_object_filter :
+            json.dump ( item , fw_filter )
+            fw_filter.write ( '\n' )
+
     with open ( '{}_filter.txt'.format(firewall['host']) , 'w' ) as fw_filter :
         for item in firewall_object_filter :
             item.pop ( '.id' )
@@ -64,6 +69,10 @@ def firewall_connect(firewall) :
     ################################################
     # NAT
     ################################################
+    with open ( '{}_nat.txt_id'.format(firewall['host']) , 'w+' ) as fw_nat :
+        for item in firewall_object_nat :
+            json.dump ( item , fw_nat )
+            fw_nat.write ( '\n' )
 
     with open ( '{}_nat.txt'.format(firewall['host']) , 'w+' ) as fw_nat :
         for item in firewall_object_nat :
@@ -79,7 +88,12 @@ def firewall_connect(firewall) :
 
     ################################################
     # ADDRESS LISTS
-    ################################################
+    ################################################.
+    with open ( '{}_address_list_id.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
+        for item in firewall_object_object_address_list :
+            json.dump(item, fw_file)
+            fw_file.write('\n')
+
     with open ( '{}_address_list.txt'.format(firewall['host']) , 'w+' ) as fw_file :
         for item in firewall_object_object_address_list :
             item.pop ( 'creation-time' )
@@ -95,6 +109,14 @@ def firewall_connect(firewall) :
     # IPSEC STUFF - PHASE 1
     ################################################
     #Profile
+    with open ( '{}_ipsec_profile_id.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
+        for item in firewall_object_ipsec_profile :
+            if item['name'] == 'default':
+                print('Skipping default value of IPSec Profile on {}'.format(firewall['host']))
+            else:
+                json.dump ( item , fw_file )
+                fw_file.write ( '\n' )
+
     with open ( '{}_ipsec_profile.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
         for item in firewall_object_ipsec_profile :
             if item['name'] == 'default':
@@ -105,6 +127,11 @@ def firewall_connect(firewall) :
                 fw_file.write ( '\n' )
 
     # PEER
+    with open ( '{}_ipsec_peer_id.txt'.format(firewall['host']) , 'w+' ) as fw_file :
+        for item in firewall_object_ipsecpeer :
+            json.dump ( item , fw_file )
+            fw_file.write ( '\n' )
+
     with open ( '{}_ipsec_peer.txt'.format(firewall['host']) , 'w+' ) as fw_file :
         for item in firewall_object_ipsecpeer :
             item.pop ( '.id' )
@@ -114,6 +141,11 @@ def firewall_connect(firewall) :
             fw_file.write ( '\n' )
 
     # Identity
+    with open ( '{}_ipsec_identity_id.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
+        for item in firewall_object_identity :
+            json.dump ( item , fw_file )
+            fw_file.write ( '\n' )
+
     with open ( '{}_ipsec_identity.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
         for item in firewall_object_identity :
             item.pop ( '.id' )
@@ -125,6 +157,14 @@ def firewall_connect(firewall) :
     #IPSEC PHASE 2
     ##############################
     # Proposal
+    with open ( '{}_ipsec_proposal_id.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
+        for item in firewall_object_ipsecproposal :
+            if item['name'] == 'default':
+                print('Skipping default values for IPSEC proposal for {}'.format(firewall['host']))
+            else:
+                json.dump ( item , fw_file )
+                fw_file.write ( '\n' )
+
     with open ( '{}_ipsec_proposal.txt'.format ( firewall['host'] ) , 'w+' ) as fw_file :
         for item in firewall_object_ipsecproposal :
             if item['name'] == 'default':
@@ -146,14 +186,25 @@ def firewall_connect(firewall) :
                 continue
 
             else:
+                json.dump ( item , fw_file )
+                fw_file.write ( '\n' )
+
+    with open ( '{}_ipsec_policy.txt'.format(firewall['host']) , 'w+' ) as fw_file :
+        #just checking to see if the word default is in the dictionaty, if so - skip over
+
+        for item in firewall_object_ipsecpolicy :
+            if 'default' in item:
+                continue
+
+            else:
                 item.pop ( '.id' )
                 item.pop ( 'ph2-count' )
                 item.pop ( 'ph2-state')
                 item.pop ( 'active' )
                 item.pop ( 'invalid' )
                 item.pop ( 'dynamic' )
-            json.dump ( item , fw_file )
-            fw_file.write ( '\n' )
+                json.dump ( item , fw_file )
+                fw_file.write ( '\n' )
 
 
 
